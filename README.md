@@ -9,94 +9,95 @@ To write a program to implement the SVM For Spam Mail Detection.
 
 ## Algorithm
 
-1.Import the necessary python packages using import statements.
+1. Import the necessary packages.
+2. Read the given csv file and display the few contents of the data.
+3. Assign the features for x and y respectively.
+4. Split the x and y sets into train and test sets.
+5. Convert the Alphabetical data to numeric using CountVectorizer.
+6. Predict the number of spam in the data using SVC (C-Support Vector Classification) method of SVM (Support vector machine) in sklearn library.
+7. Find the accuracy of the model.
 
-2.Read the given csv file using read_csv() method and print the number of contents to be displayed using df.head().
 
-3.Split the dataset using train_test_split.
-
-4.Calculate Y_Pred and accuracy.
-
-5.Print all the outputs.
-
-6.End the Program
 ## Program:
 ```
 /*
 Program to implement the SVM For Spam Mail Detection..
-Developed by: HENRIPRASATH S
-RegisterNumber:  212223230077
+Developed by: THAMIZH KUMARAN S
+RegisterNumber: 212223240166
 */
 ```
+
 ```
-import chardet
-file='spam.csv'
-with open (file,'rb') as rawdata:
-    result = chardet.detect(rawdata.read(100000))
-result
 
 import pandas as pd
-data=pd.read_csv("spam.csv",encoding='windows-1252')
+data=pd.read_csv("spam.csv", encoding='Windows-1252')
+data
 
-data.head()
+data.shape
 
-data.info()
+x=data['v2'].values
+y=data['v1'].values
+x.shape
 
-data.isnull().sum()
-
-x=data["v1"].values
-y=data["v2"].values
+y.shape
 
 from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2, random_state=0)
+x_train
+
+x_train.shape
 
 from sklearn.feature_extraction.text import CountVectorizer
 cv=CountVectorizer()
-
 x_train=cv.fit_transform(x_train)
 x_test=cv.transform(x_test)
-
 from sklearn.svm import SVC
 svc=SVC()
 svc.fit(x_train,y_train)
 y_pred=svc.predict(x_test)
 y_pred
 
-from sklearn import metrics
-accuracy=metrics.accuracy_score(y_test,y_pred)
-accuracy
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
+acc=accuracy_score(y_test,y_pred)
+acc
+
+con=confusion_matrix(y_test,y_pred)
+print(con)
+
+cl=classification_report(y_test,y_pred)
+print(cl)
+
 ```
 
 ## Output:
-## ENCODING
+## Dataset:
 
-![Screenshot 2025-05-25 132246](https://github.com/user-attachments/assets/d34ac87b-fb68-45f8-a0e5-ccf3dcc390d0)
-
-
-## Head():
-
-![Screenshot 2025-05-25 132256](https://github.com/user-attachments/assets/e6fffc45-897e-46f9-bb6d-f1f904b1fbf2)
+![Screenshot 2025-06-05 125416](https://github.com/user-attachments/assets/677c47c5-c0cb-4d39-8403-bcc9245e3c63)
 
 
-## Info():
+## Train_Test:
 
-![Screenshot 2025-05-25 132306](https://github.com/user-attachments/assets/5618900e-130a-4e5f-871b-db6cb433f84a)
-
-
-## isnul().sum():
-
-![Screenshot 2025-05-25 132313](https://github.com/user-attachments/assets/39e9a76f-8437-4fe3-9f0b-55a2c94517a4)
+![Screenshot 2025-06-05 125429](https://github.com/user-attachments/assets/734abdd3-53d7-4cf3-8730-a41939fb6f6a)
 
 
-## Prediction of Y
+## y_pred
 
-![Screenshot 2025-05-25 132324](https://github.com/user-attachments/assets/d86fb7d4-76bf-48a6-bedb-b7083c224dea)
+![Screenshot 2025-06-05 125438](https://github.com/user-attachments/assets/1613206e-b9d2-473a-973f-34314c6068cd)
 
 
-## Acuuarcy
+## Accuracy
 
-![Screenshot 2025-05-25 132333](https://github.com/user-attachments/assets/276d4d69-09d0-43fe-bcfa-8fd2be13a7dc)
+![Screenshot 2025-06-05 125444](https://github.com/user-attachments/assets/1687e393-6172-4f84-85c5-a40e10745ede)
 
+
+## Confusion Matrix
+
+![Screenshot 2025-06-05 125448](https://github.com/user-attachments/assets/ebe3d929-916f-4da5-ac00-73b9c6db656e)
+
+
+## Classification Report
+
+![Screenshot 2025-06-05 125458](https://github.com/user-attachments/assets/c7a6fc92-10dd-4896-be2d-13fa8abd8672)
 
 
 ## Result:
